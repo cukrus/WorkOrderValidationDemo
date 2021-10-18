@@ -17,7 +17,32 @@ public class DateValidator extends Validator {
 
     @Override
     protected String internalValidate() {
-        //TODO implement;
+        switch (mode) {
+            case BEFORE:
+                if (toValidate == null || toCompare == null) {
+                    return "unable to compare, one or both dates are null";
+                }
+                if (!toValidate.before(toCompare)) {
+                    return "is not before compared date";
+                }
+                break;
+            case AFTER:
+                if (toValidate == null || toCompare == null) {
+                    return "unable to compare, one or both dates are null";
+                }
+                if (!toValidate.after(toCompare)) {
+                    return "is not after compared date";
+                }
+                break;
+            case BETWEEN:
+                if (toValidate == null || betweenDates == null || betweenDates.length != 2 || betweenDates[0] == null || betweenDates[1] == null) {
+                    return "unable to compare, one or more dates are null";
+                }
+                if (!toValidate.after(betweenDates[0]) || !toValidate.before(betweenDates[1])) {
+                    return "is not between compared dates";
+                }
+                break;
+        }
         return null;
     }
 

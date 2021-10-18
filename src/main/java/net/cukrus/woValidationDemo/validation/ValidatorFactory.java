@@ -4,9 +4,8 @@ import net.cukrus.woValidationDemo.model.WorkOrderValidationRequest;
 import net.cukrus.woValidationDemo.model.dto.Repair;
 import net.cukrus.woValidationDemo.model.dto.Replacement;
 import net.cukrus.woValidationDemo.model.dto.WorkOrder;
+import net.cukrus.woValidationDemo.util.DateUtils;
 import org.springframework.util.CollectionUtils;
-
-import java.util.Date;
 
 public class ValidatorFactory {
     public static WorkOrderValidator createValidator(WorkOrderValidationRequest request) {
@@ -23,7 +22,7 @@ public class ValidatorFactory {
                             "GOoD replacement department")));
             result.addRules(new ValidationRule("start_date", "not empty and before current date", true,
                     new EmptyValidator(workOrder.getStartDate()),
-                    DateValidator.before(workOrder.getStartDate(), new Date())));//TODO need to get currentDate from request process start ?
+                    DateValidator.before(workOrder.getStartDate(), DateUtils.dateFromDate(request.getRequestDate()))));
             result.addRules(new ValidationRule("end_date", "not empty and after start date", true,
                     new EmptyValidator(workOrder.getEndDate()),
                     DateValidator.after(workOrder.getEndDate(), workOrder.getStartDate())));
@@ -52,7 +51,7 @@ public class ValidatorFactory {
                 result.addRules(new ValidationRule("parts", "all inventory numbers are not empty", true,
                         new CustomValidator(() -> CollectionUtils.isEmpty(replacement.getParts())
                                 || replacement.getParts().stream().anyMatch(p -> p.getInventoryNumber() == null
-                                || (p.getInventoryNumber() == null || p.getInventoryNumber().isBlank()))
+                                || p.getInventoryNumber().isBlank())
                                 ? "found part(s) with blank inventory numbers" : null)));
             }
         }

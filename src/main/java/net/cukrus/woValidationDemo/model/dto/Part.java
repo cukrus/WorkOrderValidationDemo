@@ -1,7 +1,9 @@
 package net.cukrus.woValidationDemo.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@JsonPropertyOrder({ "inventory_number", "name", "count" })
 public class Part {
     private String name;
     @JsonProperty("inventory_number")

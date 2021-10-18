@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.util.StdConverter;
 
 import java.util.Currency;
 
-public class CurrencyConverter extends StdConverter<String, Currency> {
+public class StringToCurrencyConverter extends StdConverter<String, Currency> {
     @Override
     public Currency convert(String value) {
         Currency result = null;

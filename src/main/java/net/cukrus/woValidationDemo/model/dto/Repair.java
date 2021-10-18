@@ -1,16 +1,23 @@
 package net.cukrus.woValidationDemo.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import net.cukrus.woValidationDemo.jackson.DateToStringConverter;
+import net.cukrus.woValidationDemo.jackson.StringToDateConverter;
 
 import java.util.Date;
 
+@JsonPropertyOrder({ "department", "start_date", "end_date", "analysis_date", "test_date", "responsible_person", "currency", "cost", "parts" })
 public class Repair extends WorkOrder {
     @JsonProperty("analysis_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(converter = StringToDateConverter.class)
+    @JsonSerialize(converter = DateToStringConverter.class)
     private Date analysisDate;
     @JsonProperty("test_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(converter = StringToDateConverter.class)
+    @JsonSerialize(converter = DateToStringConverter.class)
     private Date testDate;
     @JsonProperty("responsible_person")
     private String responsiblePerson;
