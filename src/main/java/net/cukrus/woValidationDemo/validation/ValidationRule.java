@@ -2,6 +2,9 @@ package net.cukrus.woValidationDemo.validation;
 
 import net.cukrus.woValidationDemo.model.dto.RuleValidationResult;
 
+/**
+ * represents a field validation rule that can consist of multiple Validators
+ */
 public class ValidationRule {
     private final String fieldName;
     private final String ruleDescription;
@@ -15,6 +18,10 @@ public class ValidationRule {
         this.validators = validators;
     }
 
+    /**
+     * executes the logic of Validators held and produces a RuleValidationResult
+     * @return RuleValidationResult object that holds information and errors about executed logic
+     */
     public RuleValidationResult validate() {
         RuleValidationResult result = new RuleValidationResult(fieldName, ruleDescription);
         for(Validator validator : validators) {

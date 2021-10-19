@@ -2,6 +2,9 @@ package net.cukrus.woValidationDemo.validation;
 
 import java.util.Date;
 
+/**
+ * Validator for logic tied to Date comparison
+ */
 public class DateValidator extends Validator {
     private static final String UNABLE_TO_COMPARE = "unable to compare, one or more dates is null";
     private final DateValidationMode mode;
@@ -47,14 +50,32 @@ public class DateValidator extends Validator {
         return null;
     }
 
+    /**
+     * method for building a Validator for checking if one Date is before another
+     * @param toValidate Date to check if its before
+     * @param toCompare Date to compare to
+     * @return DateValidator that checks if <i>toValidate</i> is before <i>toCompare</i>
+     */
     public static DateValidator before(Date toValidate, Date toCompare) {
         return new DateValidator(DateValidationMode.BEFORE, toValidate, toCompare, null);
     }
 
+    /**
+     * method for building a Validator for checking if one Date is after another
+     * @param toValidate Date to check if its after
+     * @param toCompare Date to compare to
+     * @return DateValidator that checks if <i>toValidate</i> is after <i>toCompare</i>
+     */
     public static DateValidator after(Date toValidate, Date toCompare) {
         return new DateValidator(DateValidationMode.AFTER, toValidate, toCompare, null);
     }
 
+    /**
+     * method for building a Validator for checking if one Date is between two others
+     * @param toValidate Date to check if its between
+     * @param betweenDates Date array with expected length of 2 for comparison
+     * @return DateValidator that checks if <i>toValidate</i> is between <i>betweenDates[0]</i> and <i>betweenDates[1]</i>
+     */
     public static DateValidator between(Date toValidate, Date... betweenDates) {
         return new DateValidator(DateValidationMode.BETWEEN, toValidate, null, betweenDates);
     }

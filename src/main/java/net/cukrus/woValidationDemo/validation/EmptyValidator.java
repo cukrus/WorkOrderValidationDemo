@@ -1,5 +1,8 @@
 package net.cukrus.woValidationDemo.validation;
 
+/**
+ * Validator for validating if an object is null or blank in case of String
+ */
 public class EmptyValidator extends Validator {
     private final Object toValidate;
 

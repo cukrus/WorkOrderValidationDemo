@@ -7,7 +7,16 @@ import net.cukrus.woValidationDemo.model.dto.WorkOrder;
 import net.cukrus.woValidationDemo.util.DateUtils;
 import org.springframework.util.CollectionUtils;
 
-public class ValidatorFactory {
+/**
+ * Factory class for WorkOrderValidator creation
+ */
+public class WorkOrderValidatorFactory {
+
+    /**
+     * method for constructing WorkOrderValidator and populating it with ValidationRules depending on WorkOrder type
+     * @param request WorkOrderValidationRequest with a WorkOrder to create WorkOrderValidator for
+     * @return WorkOrderValidator with populated ValidationRules dependent on WorkOrder type in <i>request</i>
+     */
     public static WorkOrderValidator createValidator(WorkOrderValidationRequest request) {
         //TODO if more WorkOrder Types gets added refactor to switch by class name or enum
         WorkOrderValidator result = null;

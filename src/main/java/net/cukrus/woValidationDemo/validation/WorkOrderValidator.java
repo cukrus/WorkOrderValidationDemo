@@ -3,11 +3,13 @@ package net.cukrus.woValidationDemo.validation;
 import net.cukrus.woValidationDemo.model.dto.RuleValidationResult;
 import net.cukrus.woValidationDemo.model.dto.WorkOrder;
 import net.cukrus.woValidationDemo.model.dto.WorkOrderValidationResult;
-import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * represents a WorkOrder validator that consists of collection of ValidationRules for its fields
+ */
 public class WorkOrderValidator {
     private final WorkOrder workOrder;
     private List<ValidationRule> validationRules = new ArrayList();
@@ -22,6 +24,10 @@ public class WorkOrderValidator {
         this.failFast = failFast;
     }
 
+    /**
+     * appends current <i>validationRules</i> with additional provided <i>rules</i>
+     * @param rules ValidationRule rules to add
+     */
     public void addRules(ValidationRule... rules){
         if(rules != null && rules.length > 0) {
             if (validationRules == null) {
@@ -31,16 +37,18 @@ public class WorkOrderValidator {
         }
     }
 
+    /**
+     * executes the logic of ValidationRules held and produces a WorkOrderValidationResult
+     * @return WorkOrderValidationResult object that holds information and errors about executed logic
+     */
     public WorkOrderValidationResult validate() {
         WorkOrderValidationResult result = new WorkOrderValidationResult(workOrder);
-        if (!CollectionUtils.isEmpty(validationRules)) {
-            for (ValidationRule rule : validationRules) {
-                RuleValidationResult ruleResult = rule.validate();
-                if (!ruleResult.valid()) {
-                    result.getErrors().add(ruleResult.toString());
-                    if(failFast) {
-                        break;
-                    }
+        for (ValidationRule rule : validationRules) {
+            RuleValidationResult ruleResult = rule.validate();
+            if (!ruleResult.valid()) {
+                result.getErrors().add(ruleResult.toString());
+                if (failFast) {
+                    break;
                 }
             }
         }

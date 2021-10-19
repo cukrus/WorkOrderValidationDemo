@@ -2,6 +2,9 @@ package net.cukrus.woValidationDemo.validation;
 
 import java.util.regex.Pattern;
 
+/**
+ * Validator for logic tied to String comparison
+ */
 public class StringValidator extends Validator {
     private final StringValidationMode mode;
     private final String toValidate;
@@ -22,6 +25,12 @@ public class StringValidator extends Validator {
         return result;
     }
 
+    /**
+     * method for building a Validator for checking if a given String matches a regex pattern
+     * @param toValidate String to check
+     * @param regex regex to compare to
+     * @return StringValidator that checks if <i>toValidate</i> matches <i>regex</i>
+     */
     public static StringValidator pattern(String toValidate, String regex) {
         return new StringValidator(StringValidationMode.PATTERN, toValidate, regex);
     }
