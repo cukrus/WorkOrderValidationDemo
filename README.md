@@ -5,6 +5,21 @@ Demo project for WorkOrder validation
 The role of the service: validation work orders – Analysis, Repair, Replacement. Each work order contains
 collection of parts.
 
+## Build and run instructions
+Due to use of JSP with spring boot, the project needs to be built as an executable .war file and executed as a jar file.
+- Build command: mvn clean package (or use provided portable maven ./mvnw clean package)
+- Run command: java -jar target/woValidationDemo-0.0.1-SNAPSHOT.war
+- Default application domain: http://localhost:8080
+
+## Request mappings
+REST API:
+ * POST - http://localhost:8080/api/validate
+ * GET - http://localhost:8080/api/validationHistory
+
+UI URLs:
+ * http://localhost:8080 or http://localhost:8080/index
+ * http://localhost:8080/history
+
 ## Technical requirements
 1. The service shall expose a REST interface consuming work orders in JSON format and returning validation result
    to the client
