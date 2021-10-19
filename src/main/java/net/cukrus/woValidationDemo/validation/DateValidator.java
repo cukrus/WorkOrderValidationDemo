@@ -3,6 +3,7 @@ package net.cukrus.woValidationDemo.validation;
 import java.util.Date;
 
 public class DateValidator extends Validator {
+    private static final String UNABLE_TO_COMPARE = "unable to compare, one or more dates is null";
     private final DateValidationMode mode;
     private final Date toValidate;
     private final Date toCompare;
@@ -20,26 +21,26 @@ public class DateValidator extends Validator {
         switch (mode) {
             case BEFORE:
                 if (toValidate == null || toCompare == null) {
-                    return "unable to compare, one or both dates are null";
+                    return UNABLE_TO_COMPARE;
                 }
                 if (!toValidate.before(toCompare)) {
-                    return "is not before compared date";
+                    return "not before compared date";
                 }
                 break;
             case AFTER:
                 if (toValidate == null || toCompare == null) {
-                    return "unable to compare, one or both dates are null";
+                    return UNABLE_TO_COMPARE;
                 }
                 if (!toValidate.after(toCompare)) {
-                    return "is not after compared date";
+                    return "not after compared date";
                 }
                 break;
             case BETWEEN:
                 if (toValidate == null || betweenDates == null || betweenDates.length != 2 || betweenDates[0] == null || betweenDates[1] == null) {
-                    return "unable to compare, one or more dates are null";
+                    return UNABLE_TO_COMPARE;
                 }
                 if (!toValidate.after(betweenDates[0]) || !toValidate.before(betweenDates[1])) {
-                    return "is not between compared dates";
+                    return "not between compared dates";
                 }
                 break;
         }

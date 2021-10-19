@@ -16,7 +16,7 @@ public class ValidationRule {
     }
 
     public RuleValidationResult validate() {
-        RuleValidationResult result = new RuleValidationResult();
+        RuleValidationResult result = new RuleValidationResult(fieldName, ruleDescription);
         for(Validator validator : validators) {
             String error = validator.validate();
             if(error != null) {

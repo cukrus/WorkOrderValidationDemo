@@ -1,5 +1,6 @@
 package net.cukrus.woValidationDemo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import net.cukrus.woValidationDemo.model.dto.WorkOrder;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Transient;
 import java.util.Date;
 
 @Entity
+@JsonIgnoreProperties({ "workOrder" })
 public class WorkOrderValidationRequest {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -18,7 +20,6 @@ public class WorkOrderValidationRequest {
     private String workOrderType;
     private String department;
     private Boolean valid;
-    private String request;//TODO is it needed?
     @Transient
     private WorkOrder workOrder;
 
@@ -71,14 +72,6 @@ public class WorkOrderValidationRequest {
 
     public void setValid(Boolean valid) {
         this.valid = valid;
-    }
-
-    public String getRequest() {
-        return request;
-    }
-
-    public void setRequest(String request) {
-        this.request = request;
     }
 
     public WorkOrder getWorkOrder() {

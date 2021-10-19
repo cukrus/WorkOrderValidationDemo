@@ -36,9 +36,11 @@ public class WorkOrderValidator {
         if (!CollectionUtils.isEmpty(validationRules)) {
             for (ValidationRule rule : validationRules) {
                 RuleValidationResult ruleResult = rule.validate();
-                result.getRuleValidationResults().add(ruleResult);
-                if (failFast && !ruleResult.valid()) {
-                    break;
+                if (!ruleResult.valid()) {
+                    result.getErrors().add(ruleResult.toString());
+                    if(failFast) {
+                        break;
+                    }
                 }
             }
         }
